@@ -6,14 +6,16 @@
 <a href="https://pypi.org/project/pytubefix/"><img src="https://img.shields.io/pypi/v/pytubefix" /></a>
 
 
-## A pytube fork with additional features and fixes.
+## A pytube, pytubefix fork with additional features and fixes.
 
 ----------
-## install
-
-    pip install pytubefix
-
-
+## install [Complete and working code](https://github.com/HACKS-EXE/ZQ-PY-YOUTUBE/tree/main/Examples#link-install)
+```python
+pip install pytubefix
+```
+```python
+pip install pytubefix --upgrade
+```
 ## Quickstart
 
 #### mp4 video download highest resolution:
