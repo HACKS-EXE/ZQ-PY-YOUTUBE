@@ -1,4 +1,5 @@
 # pytubefix
+
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/pytubefix)
 ![PyPI - License](https://img.shields.io/pypi/l/pytubefix)
 ![Read the Docs](https://img.shields.io/readthedocs/pytubefix)
@@ -25,7 +26,7 @@ pip install pytubefix --upgrade
 from pytubefix import YouTube
 from pytubefix.cli import on_progress
  
-url = input("url >")
+url = "url"
  
 yt = YouTube(url, on_progress_callback = on_progress)
 print(yt.title)
@@ -41,7 +42,7 @@ ys.download()
 from pytubefix import YouTube
 from pytubefix.cli import on_progress
  
-url = input("url >")
+url = "url"
  
 yt = YouTube(url, on_progress_callback = on_progress)
 print(yt.title)
@@ -57,7 +58,7 @@ ys.download(mp3=True) # pass the parameter mp3=True to save in .mp3
 from pytubefix import Playlist
 from pytubefix.cli import on_progress
  
-url = input("url Here >")
+url = "url"
 
 pl = Playlist(url)
 
@@ -74,7 +75,7 @@ for video in pl.videos:
 from pytubefix import YouTube
 from pytubefix.cli import on_progress
  
-url = input("url Here >")
+url = "url"
 
 yt = YouTube(url, use_oauth=True, allow_oauth_cache=True, on_progress_callback = on_progress)
            
