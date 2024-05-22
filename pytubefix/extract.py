@@ -413,7 +413,7 @@ def apply_signature(stream_manifest: Dict, vid_info: Dict, js: str) -> None:
 
     """
     cipher = Cipher(js=js)
-
+    discovered_n = dict()
     for i, stream in enumerate(stream_manifest):
         try:
             url: str = stream["url"]
@@ -456,7 +456,12 @@ def apply_signature(stream_manifest: Dict, vid_info: Dict, js: str) -> None:
             # To decipher the value of "n", we must interpret the player's JavaScript.
 
             initial_n = query_params['n']
-            new_n = cipher.get_throttling(initial_n)
+
+            # Check if any previous stream decrypted the parameter
+            if initial_n not in discovered_n:
+                discovered_n[initial_n] = cipher.get_throttling(initial_n)
+
+            new_n = discovered_n[initial_n]
             query_params['n'] = new_n
 
         url = f'{parsed_url.scheme}://{parsed_url.netloc}{parsed_url.path}?{urlencode(query_params)}'  # noqa:E501
@@ -464,7 +469,7 @@ def apply_signature(stream_manifest: Dict, vid_info: Dict, js: str) -> None:
         stream_manifest[i]["url"] = url
 
 
-def apply_descrambler(stream_data: Dict) -> None:
+def apply_descrambler(stream_data: Dict) -> Optional[List[Dict]]:
     """Apply various in-place transforms to YouTube's media stream data.
 
     Creates a ``list`` of dictionaries by string splitting on commas, then
@@ -486,7 +491,7 @@ def apply_descrambler(stream_data: Dict) -> None:
         return None
 
     # Merge formats and adaptiveFormats into a single list
-    formats = []
+    formats: list[Dict] = []
     if 'formats' in stream_data.keys():
         formats.extend(stream_data['formats'])
     if 'adaptiveFormats' in stream_data.keys():
